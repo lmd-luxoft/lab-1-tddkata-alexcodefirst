@@ -53,11 +53,10 @@ namespace TDDKata
         }
 
 
-        [TestCase("1,1,2")]
-        [TestCase("1,1,2,3")]
-        public void Should_ThrowException_When_ArgumentsHaveMoreThanTwoNumbers(string arguments)
+        [TestCase("1,1,2", 4)]
+        [TestCase("1,1,2,3", 7)]
+        public void Should_ReturnSum_When_ArgumentsHaveMoreThanTwoNumbers(string arguments, int expected)
         {
-            int expected = -1;
             int actual = _stringCalc.Sum(arguments);
             Assert.AreEqual(expected, actual);
         }
@@ -82,11 +81,18 @@ namespace TDDKata
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("1;1")]
-        [TestCase("1.1")]
-        public void Should_ThrowException_When_ArgumentsSeparatotIsIncorrect(string arguments)
+        [TestCase("1,1", 2)]
+        [TestCase("1/n1", 2)]
+        public void Should_ReturnSum_When_ArgumentsSeparatotIsCorrect(string arguments, int expected)
         {
-            int expected = -1;
+            int actual = _stringCalc.Sum(arguments);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("//1;1.3", 4)]
+        [TestCase("//1.1", 2)]
+        public void Should_ReturnSum_When_ArgumentsContainSpecialSeparator(string arguments, int expected)
+        {
             int actual = _stringCalc.Sum(arguments);
             Assert.AreEqual(expected, actual);
         }
